@@ -213,3 +213,20 @@ acce_data
 The size of the dataset `acce_data` is `r nrow(acce_data)` observtaions and `r ncol(acce_data)` variables. Key variables include what week and day of the week the data was collected, and the accelerometer data for each minute of the day data was collected. 
 
 
+Part 2
+Traditional analyses of accelerometer data focus on the total activity over the day. Using your tidied dataset, aggregate accross minutes to create a total activity variable for each day, and create a table showing these totals. Are any trends apparent?
+
+No trends are apparent from the accel_table created. 
+
+```{r}
+accel_table = acce_data%>%
+  pivot_longer(activity_1:activity_1440,
+    names_to = "activity_minute",
+    values_to = "activity") %>% 
+  group_by(day_id, day, week, dow) %>% 
+  summarize(daily_activity=sum(activity)) 
+accel_table
+```
+
+
+
