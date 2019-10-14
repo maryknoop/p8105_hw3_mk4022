@@ -15,13 +15,26 @@ library(p8105.datasets)
 ```
 
 Problem 1
-The goal is to do some exploration of this dataset. To that end, write a short description of the dataset, noting the size and structure of the data, describing some key variables, and giving illstrative examples of observations. Then, do or answer the following (commenting on the results of each):
-* How many aisles are there, and which aisles are the most items ordered from?
-* Make a plot that shows the number of items ordered in each aisle, limiting this to aisles with more than 10000 items ordered. Arrange aisles sensibly, and organize your plot so others can read it.
-* Make a table showing the three most popular items in each of the aisles “baking ingredients”, “dog food care”, and “packaged vegetables fruits”. Include the number of times each item is ordered in your table.
-* Make a table showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers (i.e. produce a 2 x 7 table).
+Part 1
+The goal is to do some exploration of this dataset. To that end, write a short description of the dataset, noting the size and structure of the data, describing some key variables, and giving illstrative examples of observations. 
 
 ```{r}
 data ("instacart")
 instacart
 ```
+
+The dataset `Instacart` has `r nrow(instacart)` observtaions and `r ncol(instacart)` variables. Key variables include order details and product details.  The mean hour of day where orders were made is `r mean(pull(instacart, order_hour_of_day))`. The median number of days between orders is `r median(pull(instacart, days_since_prior_order))`.
+
+Part 2
+How many aisles are there, and which aisles are the most items ordered from?
+
+Part 3
+Make a plot that shows the number of items ordered in each aisle, limiting this to aisles with more than 10000 items ordered. Arrange aisles sensibly, and organize your plot so others can read it.
+
+Part 4
+Make a table showing the three most popular items in each of the aisles “baking ingredients”, “dog food care”, and “packaged vegetables fruits”. Include the number of times each item is ordered in your table.
+
+Part 5
+Make a table showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers (i.e. produce a 2 x 7 table).
+
+
