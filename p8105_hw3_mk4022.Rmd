@@ -197,5 +197,19 @@ datavalue=
 datavalue
 ```
 
+Question 3
+Part 1
+Load, tidy, and otherwise wrangle the data. Your final dataset should include all originally observed variables and values; have useful variable names; include a weekday vs weekend variable; and encode data with reasonable variable classes. Describe the resulting dataset (e.g. what variables exist, how many observations, etc).
+
+```{r}
+acce_data = 
+  read_csv("./Data/accel_data.csv") %>%
+  janitor::clean_names() %>%
+  mutate(day = factor(day, labels = c("Monday", "Tuesday", "Wednesday", "Thursday", "Friday",     "Saturday", "Sunday")), dow = day == "Saturday" | day == "Sunday",
+         dow = ifelse(dow ==TRUE, "Weekend", "Weekday")) %>% 
+  select(week, day, dow, everything()) 
+acce_data
+```
+The size of the dataset `acce_data` is `r nrow(acce_data)` observtaions and `r ncol(acce_data)` variables. Key variables include what week and day of the week the data was collected, and the accelerometer data for each minute of the day data was collected. 
 
 
