@@ -51,7 +51,7 @@ aisle_scatter=
     axis.text.x = element_text(angle = 90, hjust = 1), 
     axis.text = element_text(size = 7.5)) +
   labs(
-    title = "Number of items ordered in each aisle",
+    title = "Number of items ordered per aisle",
     x = "Aisle",
     y = "Number of products"
   )
@@ -161,7 +161,7 @@ brfss_spaghetti=
   ggplot(aes(x = year, y= avg_data_value, group = locationabbr)) +
   geom_line(aes(color = locationabbr)) +
   labs(
-    title = "Average value over time within the 50 states",
+    title = "Average value over time across 50 states",
     x = "Year",
     y = "Average Data Value"
   )
@@ -190,7 +190,7 @@ datavalue=
   geom_boxplot() +
   facet_grid(. ~year) +
   labs(
-    title = "Distribution of Data Value Responses among locations in NY State",
+    title = "Distribution of Data Value Responses in NY State",
     x = "Response",
     y = "Data Value"
   )
@@ -226,6 +226,25 @@ accel_table = acce_data%>%
   group_by(day_id, day, week, dow) %>% 
   summarize(daily_activity=sum(activity)) 
 accel_table
+```
+
+Part 3
+Accelerometer data allows the inspection activity over the course of the day. Make a single-panel plot that shows the 24-hour activity time courses for each day and use color to indicate day of the week. Describe in words any patterns or conclusions you can make based on this graph.
+
+The greatest days of variation are Tuesday and Wednesday followed by Monday and Thursday. Friday, Saturday and Sunday show the steadiest patterns.  
+
+```{r}
+plot_accel=
+  accel_table %>%
+  ggplot(aes(x = day_id, y = daily_activity, color = day)) +
+  geom_point() +
+  geom_line() +
+  labs(
+    title = "24 Hour Activity Time by Day",
+    x = "Day_ID",
+    y = "Total Activity Tiime"
+  )
+plot_accel
 ```
 
 
