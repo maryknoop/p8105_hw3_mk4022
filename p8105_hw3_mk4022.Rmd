@@ -168,6 +168,34 @@ brfss_spaghetti=
 brfss_spaghetti
 ```
 
+Part 4
+Make a two-panel plot showing, for the years 2006, and 2010, distribution of data_value for responses (“Poor” to “Excellent”) among locations in NY State.
+
+```{r}
+brfss_three=brfss_new %>%
+  filter(topic == "Overall Health" | 
+         response == "Excellent" | 
+         response == "Very good" | 
+         response == "Good"| 
+         response == "Fair"|
+         response == "Poor",
+         year == "2006"| 
+         year == "2010" ,
+         locationabbr == "NY")  
+brfss_three
+
+datavalue=
+  brfss_three %>%
+  ggplot(aes(x = response, y = data_value, color = response)) +
+  geom_boxplot() +
+  facet_grid(. ~year) +
+  labs(
+    title = "Distribution of Data Value Responses among locations in NY State",
+    x = "Response",
+    y = "Data Value"
+  )
+datavalue
+```
 
 
 
