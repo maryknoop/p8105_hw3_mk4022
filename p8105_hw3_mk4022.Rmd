@@ -12,6 +12,7 @@ knitr::opts_chunk$set(echo = TRUE)
 ```{r}
 library(tidyverse)
 library(p8105.datasets)
+library(knitr)
 ```
 
 Problem 1
@@ -56,11 +57,67 @@ aisle_scatter=
   )
 ```
 
-
 Part 4
 Make a table showing the three most popular items in each of the aisles “baking ingredients”, “dog food care”, and “packaged vegetables fruits”. Include the number of times each item is ordered in your table.
 
+```{r}
+library(knitr)
+insta_table = instacart %>%
+  filter(aisle == "baking ingredients" | 
+         aisle == "dog food care" | 
+         aisle == "packaged vegetables fruits") %>%
+  group_by(aisle, product_name) %>%
+  summarize(n = n()) %>%
+  top_n(3) %>%
+  arrange(desc(n)) %>% 
+  knitr::kable ()
+insta_table
+```
+
 Part 5
 Make a table showing the mean hour of the day at which Pink Lady Apples and Coffee Ice Cream are ordered on each day of the week; format this table for human readers (i.e. produce a 2 x 7 table).
+
+```{r}
+insta_table2 = instacart %>%
+  filter(product_name == "Pink Lady Apples" | 
+         product_name == "Coffee Ice Cream") %>%
+  group_by(product_name, order_dow) %>%
+  summarize(mean_order_hour = mean(order_hour_of_day)) %>%
+  select(product_name, order_dow, mean_order_hour) %>%
+  pivot_wider(
+    names_from = order_dow,
+    values_from = mean_order_hour
+  ) %>%
+  knitr::kable ()
+insta_table2
+```
+
+Question 2
+Part 1
+First, do some data cleaning:
+* format the data to use appropriate variable names;
+* focus on the “Overall Health” topic
+* include only responses from “Excellent” to “Poor”
+* organize responses as a factor taking levels ordered from “Poor” to “Excellent”
+
+
+```{r}
+data("brfss_smart2010")
+brfss_smart2010
+
+brfss_new=brfss_smart2010 %>%
+  janitor::clean_names() %>%
+  filter(topic == "Overall Health", 
+         response == "Excellent" | 
+         response == "Very good" | 
+         response == "Good"| 
+         response == "Fair"|
+         response == "Poor") %>%
+  mutate(response = factor(response, labels = c("Poor","Fair","Good","Very good", "Excellent" ))) %>%
+  select(-location_id, -data_value_footnote_symbol, -data_value_footnote)
+brfss_new
+```
+
+
 
 
